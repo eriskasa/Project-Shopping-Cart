@@ -14,17 +14,17 @@ const Navbar = () => {
       <ul>
         <li>
           <NavLink to="/">
-          <HomeIcon className='Icons'  width='32px' height='32px'/>
+          <HomeIcon className='Icons'  width='24px' height='24px'/>
            Home</NavLink>
         </li>
         <li>
             <NavLink to="shop">
-            <CartIcon className='Icons'  width='32px' height='32px'/>
+            <CartIcon className='Icons'  width='24px' height='24px'/>
             Shop Cart</NavLink>
         </li>
         <li>
           <NavLink to="wishlist">
-          <WishlistIcon className='Icons'   width='32px' height='32px'/>
+          <WishlistIcon className='Icons'   width='24px' height='24px'/>
           Wishlist</NavLink>
         </li>
       </ul>
