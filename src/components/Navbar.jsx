@@ -3,9 +3,13 @@ import { NavLink } from "react-router-dom";
 import Logo from './logo.svg'
 import HomeIcon from '../assets/navbarimages/home.svg?react';
 import  CartIcon  from '../assets/navbarimages/cart.svg?react';
+import { useContext } from "react";
 import  WishlistIcon from '../assets/navbarimages/wishlist.svg?react';
+import { CartContext } from "./carts/CartContext";
 
 const Navbar = () => {
+  const { totalItems } = useContext(CartContext);
+
   return (
     <nav className="navbar">
       <Link to='/'>
@@ -20,6 +24,7 @@ const Navbar = () => {
         <li>
             <NavLink to="shop">
             <CartIcon className='Icons'  width='24px' height='24px'/>
+            {totalItems > 0 && <span className="nav-totalitems" >({totalItems})</span>}
             Shop Cart</NavLink>
         </li>
         <li>

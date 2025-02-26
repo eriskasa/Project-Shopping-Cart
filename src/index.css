@@ -49,6 +49,11 @@ nav ul li a {
   font-weight: 500;
 }
 
+.nav-totalitems {
+  font-weight: bold;
+  color:  dodgerblue;
+}
+
 .active  {
   font-weight: bolder;
   color: dodgerblue;

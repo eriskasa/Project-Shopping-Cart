@@ -40,5 +40,4 @@ export const WishlistProvider = ({ children }) => {
 };
 
 WishlistProvider.propTypes = {
-  children: PropTypes.node.isRequired, // ✅ Correct type for React children
-};
+  children: PropTypes.node.isRequired, };

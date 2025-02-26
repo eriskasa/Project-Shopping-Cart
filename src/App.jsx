@@ -2,9 +2,8 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Shop from './pages/Shop';
 import Wishlist from './pages/Wishlist';
-
+import ShopItems from './pages/Shop';
 
 function App() {
 
@@ -13,7 +12,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/shop' element={<Shop/>} />
+        <Route path='/shop' element={<ShopItems/>} />
         <Route path='/wishlist' element={<Wishlist/>}/>
       </Routes>
     </Router>

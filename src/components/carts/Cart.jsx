@@ -1,14 +1,17 @@
-import PropTypes from "prop-types";
 import  { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import './Cart.css';
 import Button from "../buttons/Buttons";
 import CartIcon from '../../assets/navbarimages/cart.svg?react';
 import FavoriteButton from "../buttons/FavoriteButton";
 import { WishlistContext } from "../../context/WishlistContext";
+import { CartContext } from "./CartContext";
 
 const ProductCart = ({ products }) => {
+
   const { wishlist, addToWishList, removeFromWishlist } = useContext(WishlistContext);
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useContext(CartContext);
 
   const isFavorite = wishlist.some((item) => item.id === products.id);
 
@@ -37,6 +40,13 @@ const ProductCart = ({ products }) => {
     }
   };
 
+  const handleAddToCart = () => {
+    if (quantity > 0) {
+      addToCart(products, quantity)
+      setQuantity(1);
+    }
+  }
+
   return (
     <div className="CartComponent">
       <img src={products.image} width="250px" height="250x" alt={products.title} />
@@ -53,7 +63,7 @@ const ProductCart = ({ products }) => {
             <h3>{`$${products.price}`}</h3>
           </div>
         </div>
-        <Button variant="primary" icon={<CartIcon width="24px" height="24px" />}>
+        <Button onClick={handleAddToCart} variant="primary" icon={<CartIcon width="24px" height="24px" />}>
           Add to Cart
         </Button>
       </div>
