@@ -1,14 +1,41 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
 
-export const CartContext = createContext();
+interface MyCartContextType {
+  id: number,
+  name: string,
+  title: string,
+  quantity: number,
+  image: string,
+}
 
-export const CartProvider = ({ children }) => {
-  const [ cart, setCart ] = useState([]);
+interface CartContentType {
+  cart: MyCartContextType[];
+  addToCart: (product: MyCartContextType, quantity: number) => void;
+  removeFromCart: (itemId: number) => void;
+  Checkout: () => void;
+  totalItems: number;
+}
+
+export const CartContext = createContext<CartContentType | null>(null);
+
+interface CartProviderProps {
+  children: ReactNode;
+}
+
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+  const [ cart, setCart ] = useState<MyCartContextType[]>([]);
 
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem('cart'));
+    const savedCart = localStorage.getItem('cart');
+
     if (savedCart) {
-      setCart(savedCart);
+      try {
+        const parsedCart: MyCartContextType[] = JSON.parse(savedCart)
+        setCart(parsedCart);
+      } catch (error) {
+        console.log('Error parsing cart from localstorage', error);
+        setCart([]);
+      }
     }
   }, []);
 
@@ -18,7 +45,7 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
 
     // Add a product to the cart
-    const addToCart = (product, quantity) => {
+    const addToCart = (product: MyCartContextType, quantity: number) => {
       setCart((prev) => {
         const existingItem = prev.find((item) => item.id === product.id);
         if (existingItem) {
@@ -34,7 +61,7 @@ export const CartProvider = ({ children }) => {
     };
   
     // Remove a product from the cart
-    const removeFromCart = (itemId) => {
+    const removeFromCart = (itemId: number) => {
       setCart((prev) => prev.filter((item) => item.id !== itemId));
     };
  

@@ -7,6 +7,8 @@ import { useContext } from "react";
 import  WishlistIcon from '../assets/navbarimages/wishlist.svg?react';
 import { CartContext } from "./carts/CartContext";
 
+
+
 const Navbar = () => {
   const { totalItems } = useContext(CartContext);
 
