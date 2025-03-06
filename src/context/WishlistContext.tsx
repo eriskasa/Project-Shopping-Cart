@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
+
 import { createContext, useEffect, useState } from 'react';
+
 
 export const WishlistContext = createContext();
 
@@ -38,6 +39,3 @@ export const WishlistProvider = ({ children }) => {
     </WishlistContext.Provider>
   );
 };
-
-WishlistProvider.propTypes = {
-  children: PropTypes.node.isRequired, };
