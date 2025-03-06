@@ -4,7 +4,12 @@ import ProductCart from "../components/carts/Cart";
 import '../index.css'
 
 const Wishlist = () => {
-  const { wishlist } = useContext(WishlistContext);
+  const wishlistContext = useContext(WishlistContext);
+
+  if (!wishlistContext) {
+    throw new Error("WishlistPage must be used with a wishlistProvider")
+  }
+  const { wishlist } = wishlistContext;
 
   return (
     <div className="wishlist-cart">

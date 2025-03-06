@@ -5,7 +5,13 @@ import Button from '../components/buttons/Buttons';
 
 const ShopItems = () => {
 
-  const { cart, removeFromCart, totalItems, Checkout } = useContext(CartContext)
+  const cartContext = useContext(CartContext);
+  if (!cartContext) {
+    throw new Error("ShopItems must be used with cartContetProvider")
+  }
+
+  const { cart, removeFromCart, totalItems, Checkout } = cartContext;
+
   return (
     <div className="cart-page">
       <h1>Your Cart ({totalItems} items)</h1>
@@ -26,7 +32,7 @@ const ShopItems = () => {
           ))}
         </div>
       )}
-      {cart.length >= 1 && <Button onClick={() => Checkout(cart)} variant='secondary'>CheckOut</Button>}
+      {cart.length >= 1 && <Button onClick={() => Checkout()} variant='secondary'>CheckOut</Button>}
     </div>
   )
 }
