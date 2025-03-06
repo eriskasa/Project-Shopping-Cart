@@ -1,6 +1,16 @@
 import './Buttons.css'
+import { ReactNode } from 'react';
 
-const Button = ({ children, onClick, variant='primary', disabled, className, icon }) => {
+interface ButtonProps  {
+  children?: React.ReactNode;
+  onClick?: () => void;
+  variant?: string;
+  disabled?: boolean;
+  className?: string;
+  icon?: React.ReactNode;
+}
+
+const Button = ({ children, onClick, variant='primary', disabled = false, className, icon }: ButtonProps) => {
 
   return (
     <button

@@ -7,6 +7,7 @@ interface MyWishlistCartContent {
   title: string,
   quantity: number,
   image: string,  
+  price: number,
 }
 
 interface MyWishListContextType {

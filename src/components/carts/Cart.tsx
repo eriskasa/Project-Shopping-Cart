@@ -1,4 +1,4 @@
-import  { useContext, useState } from "react";
+import  { useContext, useState , ReactNode} from "react";
 import './Cart.css';
 import Button from "../buttons/Buttons";
 import CartIcon from '../../assets/navbarimages/cart.svg?react';
@@ -6,11 +6,31 @@ import FavoriteButton from "../buttons/FavoriteButton";
 import { WishlistContext } from "../../context/WishlistContext";
 import { CartContext } from "./CartContext";
 
-const ProductCart = ({ products }) => {
+interface ProductType {
+  id: number,
+  name: string,
+  title: string,
+  quantity: number,
+  image: string,
+  price: number,
+}
 
-  const { wishlist, addToWishList, removeFromWishlist } = useContext(WishlistContext);
+interface ProductsCartProps {
+  products: ProductType;
+}
+
+const ProductCart = ({ products }: ProductsCartProps ) => {
+
+  const wishlistContext = useContext(WishlistContext);
+  const cartContext = useContext(CartContext);
+
+  if (!wishlistContext || !cartContext) {
+    throw new Error("ProductCart must be used with a Providers")
+  }
+
+  const { wishlist, addToWishList, removeFromWishlist } = wishlistContext;
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = cartContext;
 
   const isFavorite = wishlist.some((item) => item.id === products.id);
 
