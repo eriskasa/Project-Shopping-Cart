@@ -32,6 +32,10 @@ const Home = () => {
       fetchProducts();
     },[]) 
 
+    if (error) {
+      return <p>{error}</p>
+    }
+
     const memoizedProducts = useMemo(() => products, [products]);
 
     console.log('ProductCart re-rendered with products:', products);
@@ -40,7 +44,7 @@ const Home = () => {
        {memoizedProducts.length === 0 ? (<p>Loading...</p>) : ( memoizedProducts.map((product) => (
         <ProductCart products={product} key={product.id}/>
        ))
-      )};
+      )}
     </div>
   );
 };

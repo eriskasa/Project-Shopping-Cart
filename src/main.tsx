@@ -6,8 +6,12 @@ import App from './App.jsx'
 import { WishlistProvider } from './context/WishlistContext.jsx'
 import { CartProvider } from './components/carts/CartContext.jsx'
 
-ReactDom.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  document.body.innerHTML = "<p>Faild to find the 'root' element. </p>"
+} else { 
+  ReactDom.createRoot(rootElement).render(
+    <React.StrictMode>
     <WishlistProvider>
     <CartProvider>
         <App/>
@@ -15,3 +19,4 @@ ReactDom.createRoot(document.getElementById('root')).render(
     </WishlistProvider>
   </React.StrictMode>
 )
+}
