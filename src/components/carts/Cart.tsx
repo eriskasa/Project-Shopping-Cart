@@ -1,5 +1,4 @@
 import  { useContext, useState } from "react";
-import PropTypes from "prop-types";
 import './Cart.css';
 import Button from "../buttons/Buttons";
 import CartIcon from '../../assets/navbarimages/cart.svg?react';
@@ -71,8 +70,5 @@ const ProductCart = ({ products }) => {
   );
 };
 
- ProductCart.propTypes = {
-  products: PropTypes.object.isRequired,
- }
 
 export default ProductCart;

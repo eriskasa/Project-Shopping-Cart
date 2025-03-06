@@ -1,17 +1,40 @@
 
-import { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, ReactNode } from 'react';
 
+interface MyWishlistCartContent {
+  id: number,
+  name: string,
+  title: string,
+  quantity: number,
+  image: string,  
+}
 
-export const WishlistContext = createContext();
+interface MyWishListContextType {
+  wishlist: MyWishlistCartContent[];
+  addToWishList: (item: MyWishlistCartContent)  => void;
+  removeFromWishlist: (itemId: number) =>  void;
+}
 
-export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState([]);
+export const WishlistContext  = createContext<MyWishListContextType | null>(null);
+
+interface WishListPropsProvider {
+  children: ReactNode;
+}
+
+export const WishlistProvider: React.FC<WishListPropsProvider> = ({ children }) => {
+  const [wishlist, setWishlist] = useState<MyWishlistCartContent[]>([]);
 
   // load wishlist from localstorage  on initial render
   useEffect(() => {
-    const saveWishlist = JSON.parse(localStorage.getItem('wishlist'));
+    const saveWishlist = localStorage.getItem('wishlist');
     if (saveWishlist) {
-      setWishlist(saveWishlist);
+      try {
+        const parsedWishlist: MyWishlistCartContent[] = JSON.parse(saveWishlist);
+        setWishlist(parsedWishlist);
+      } catch (error) {
+        console.log("Error passing wishlist to localSoreage",error);
+        setWishlist([]);
+      }
     }
   }, [])
 
@@ -20,7 +43,7 @@ export const WishlistProvider = ({ children }) => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist)); 
   },[wishlist])
 
-  const addToWishList = (item) => {
+  const addToWishList = (item: MyWishlistCartContent) => {
     setWishlist((prev) => {
       if (!prev.some((prevItem) => prevItem.id === item.id)) {
         return [...prev, item]
@@ -29,7 +52,7 @@ export const WishlistProvider = ({ children }) => {
     }); // Add item to wishlist
   };
 
-  const removeFromWishlist = (itemId) => {
+  const removeFromWishlist = (itemId: number) => {
     setWishlist((prev) => prev.filter((item) => item.id !== itemId)); // Remove item from wishlist
   };
 
